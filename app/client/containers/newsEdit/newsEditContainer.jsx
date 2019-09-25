@@ -101,7 +101,7 @@ class NewsEditContainer extends Component{
   render(){
     const {authProps, authAction, newsAction, newsProps} = this.props;
     const {errors} = this.state;
-    const {source} = newsProps.newsItem;
+    const {source} = newsProps.newsItem || {};
     const {id} = source || 0;
 
     let editBody;

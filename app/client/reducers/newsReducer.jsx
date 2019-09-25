@@ -5,7 +5,7 @@ import { NEWS_IS_LOADING, GET_NEWS_ITEM, DELETE_NEWS_ITEM, EDIT_NEWS_ITEM, NEWS_
 
 const initialState = {
   newsList: [],
-  newsItem: {},
+  newsItem: null,
   appInited: false,
   newsListIsEmpty: false,
   loadingStatus: false,
@@ -71,13 +71,14 @@ function getNewsItem(state, action) {
 function deleteNewsItem(state, action) {
 
   const {newsId, urlToRedirect, history} = action.data;
+
   const newsItem = (state.newsItem && state.newsItem.source.id == newsId) ? null : state.newsItem;
   const newsList = state.newsList.filter(item => item.source.id != newsId);
 
   const newState = {
     ...state,
     newsList,
-    newsItem,
+    newsItem: newsItem,
     newsListIsEmpty: !newsList.length ? true : false,
   }
 
