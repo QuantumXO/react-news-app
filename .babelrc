@@ -1,0 +1,37 @@
+{
+  "presets": [
+    [
+      "env",
+      {
+        "loose": true
+      }
+    ],
+    "react",
+    "stage-2"
+  ],
+  "plugins": [
+    ["module-resolver", {
+      "root": ["./app"],
+      "alias": {
+        "client": "./app/client",
+        "server": "./app/server",
+        "components": "./app/client/components",
+        "containers": "./app/client/containers",
+        "actions": "./app/client/actions",
+        "helpers": "./app/client/helpers",
+        "reducers": "./app/client/reducers",
+        "constants": "./app/client/constants",
+        "assets": "./app/client/assets",
+        "store": "./app/client/store"
+      }
+    }],
+    "add-module-exports",
+    "react-hot-loader/babel",
+    "babel-plugin-styled-components"
+  ],
+  "env": {
+    "production": {
+      "plugins": ["transform-react-remove-prop-types"]
+    }
+  }
+}

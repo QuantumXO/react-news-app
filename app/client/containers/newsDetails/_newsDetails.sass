@@ -1,0 +1,59 @@
+
+@import "./../../assets/config.sass"
+
+.details
+	flex: 1
+
+	&__inner
+		padding: 0 15px
+		position: relative
+
+		@include tablet-desktop
+			max-width: 50%
+
+		&:not(:first-child)
+			margin-top: 1em
+
+	&__title
+		font-size: em(30)
+		border-bottom: 0!important
+
+		a
+			color: #212529
+			text-decoration: none
+			transition: color .15s ease-in-out
+
+			&:hover
+				color: rgba(#212529, .6)
+
+	&__actions
+
+		@include tablet-desktop
+			top: 0
+			right: 0
+			position: absolute
+
+		@include tablet
+			margin-bottom: .5rem
+			width: 100%
+			order: -1
+
+		.btn
+			&--delete
+				margin-left: .5em
+
+	&__info
+		min-height: 31px
+		display: flex
+		position: relative
+		align-items: center
+		justify-content: flex-start
+
+		@include tablet
+			flex-wrap: wrap
+
+		.author
+			///
+
+
+

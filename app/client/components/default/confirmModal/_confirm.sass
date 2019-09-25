@@ -1,0 +1,43 @@
+
+@import './../../../assets/config.sass'
+
+.confirm
+	top: 5em
+	display: flex
+	align-items: center
+	justify-content: center
+	position: absolute
+	overflow: hidden
+	background-color: #fff
+	border: 1px solid #6c757d
+	border-radius: .25rem!important
+	z-index: 999
+
+	@include tablet-desktop
+		left: 50%
+		transform: translateX(-50%)
+
+	@include tablet
+		left: 0
+		width: 100%
+		max-width: 100%
+
+	&__inner
+		padding: 1em
+		position: relative
+		background-color: #ffffff
+
+		@include tablet-desktop
+			width: 50%
+			min-width: 320px
+			max-width: 560px
+
+		@include tablet
+			width: 100%
+			max-width: 100%
+
+	&__actions
+		display: flex
+		align-items: center
+		justify-content: center
+

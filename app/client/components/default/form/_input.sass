@@ -1,0 +1,45 @@
+
+
+@import './../../../assets/config.sass'
+
+.form
+	&__group
+		&:not(:first-child)
+			margin-top: 1em
+
+	&__label
+		display: inline-block
+		margin-bottom: .5rem
+
+	&__field
+		width: 100%
+		height: calc(1.5em + .75rem + 2px)
+		padding: .375rem .75rem
+		display: block
+		outline: 0
+		color: #495057
+		font-size: em(16)
+		line-height: 1.5
+		border-radius: .25rem
+		border: 1px solid #ced4da
+		background-color: #ffffff
+		background-clip: padding-box
+		transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out
+
+		&:focus
+			border-color: #80bdff
+			box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25)
+
+		&.error
+			border-color: #f8d7da
+			box-shadow: 0 0 0 0.2rem #f8d7da
+
+		&.textarea
+			min-height: 150px
+			min-width: 320px
+			max-height: 350px
+			max-width: 525px
+
+			@include tablet
+				max-width: 100%
+				min-width: auto

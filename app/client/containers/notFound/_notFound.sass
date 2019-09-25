@@ -1,0 +1,32 @@
+
+@import "./../../assets/config.sass"
+
+.not-found
+	flex: 1
+
+	&__title
+		@include tablet
+			font-size: em(16)
+
+	&__container
+		height: 100%
+
+		.row
+			height: 100%
+			display: flex
+			align-items: center
+			justify-content: center
+			flex-direction: column
+
+			.link
+				font-size: em(20)
+
+				@include tablet
+					font-size: em(14)
+
+				&:any-link
+					color: #000
+
+				&:hover
+					text-decoration: none
+

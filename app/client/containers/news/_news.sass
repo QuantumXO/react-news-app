@@ -1,0 +1,58 @@
+
+@import "./../../assets/config.sass"
+
+.news
+	flex: 1
+
+	&__list
+		//
+
+	&__item
+		padding: 0 15px
+		position: relative
+
+		@include tablet-desktop
+			max-width: 50%
+
+		&:not(:first-child)
+			margin-top: 1.5em
+
+		&__title
+			font-size: 1.5em
+
+			@include tablet-desktop
+				margin-right: 6em
+
+			a
+				color: #212529
+				text-decoration: none
+				transition: color .15s ease-in-out
+
+				&:hover
+					color: rgba(#212529, .6)
+
+		&__actions
+			top: 15px
+			right: 15px
+
+			@include tablet-desktop
+				position: absolute
+
+			@include tablet
+				margin-bottom: .5rem
+
+			.btn
+				&--delete
+					margin-left: .5em
+
+		&__info
+			display: flex
+			align-items: center
+			justify-content: flex-start
+
+			.author
+				///
+
+
+
+
