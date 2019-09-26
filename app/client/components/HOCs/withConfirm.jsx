@@ -22,7 +22,7 @@ export default class WithConfirm extends Component{
     const {actionFunc, actionParams = null} = this.props;
 
     if(typeof actionFunc == 'function'){
-      actionFunc(actionParams);
+      actionFunc();
     }
   }
 

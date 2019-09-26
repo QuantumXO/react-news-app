@@ -37,10 +37,10 @@ export function deleteCookie(name) {
   })
 }
 
-export function trimString(str){
+export function trimString(str = '', count = 200){
 
-  if (str.length >= 200) {
-    str = str.substr(0, 200)
+  if (str.length >= count) {
+    str = str.substr(0, count)
     str += '...'
   }
   // console.log('[default.ts] -> trimString __ str: ', str);

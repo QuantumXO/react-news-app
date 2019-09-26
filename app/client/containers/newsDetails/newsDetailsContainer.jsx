@@ -95,10 +95,7 @@ class NewsDetailsContainer extends Component {
                 <WithConfirm
                   title='Delete'
                   description="are u sure?"
-                  actionParams={{
-                    newsId: id,
-                  }}
-                  actionFunc={newsAction.deleteNewsItem}
+                  actionFunc={() => {newsAction.deleteNewsItem({ newsId: id, })}}
                   authState={authProps.user ? true : false}
                   Component={(...props) => (
                     <NewsBtn

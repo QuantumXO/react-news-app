@@ -3,7 +3,7 @@ import './_footer.sass';
 
 import React, {Fragment} from 'react'
 
-const tagsArr = ['React', 'News App', 'Redux', 'Google OAuth2', 'React Router', 'HOCs', 'SASS', 'BEM'];
+const tagsArr = ['React', 'News App', 'Redux', 'Google OAuth2', 'Redux Thunk', 'React Router', 'HOCs', 'SASS', 'BEM'];
 
 export default function Footer(props) {
 

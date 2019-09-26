@@ -11,6 +11,7 @@ const initialState = {
   loadingStatus: false,
   newsErrors: null,
   newsItemError: null,
+  newsItemSaved: false,
 }
 
 export default function newsReducer(state = initialState, action){
@@ -106,6 +107,7 @@ function editNewsItem(state, action) {
       newsItem: newsList.filter(item => item.source.id == newsId)[0],
       newsList: newsList,
       newsErrors: null,
+      newsItemSaved: true,
     }
 
   }else {

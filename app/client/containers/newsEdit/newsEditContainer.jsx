@@ -5,6 +5,8 @@ import React, {Component, Fragment} from 'react'
 import { bindActionCreators } from 'redux'
 import { Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
+import classnames from 'classnames'
+import {trimString} from 'helpers/default'
 
 import { getNewsList } from 'helpers/news'
 
@@ -21,7 +23,7 @@ class NewsEditContainer extends Component{
   constructor(props){
     super(props);
 
-    const {newsItem, newsErrors} = this.props.newsProps;
+    const {newsItem, newsErrors, newsItemSaved} = this.props.newsProps;
 
     this.state = {
       newsItem: newsItem || {},
@@ -32,6 +34,7 @@ class NewsEditContainer extends Component{
       formNotEmpty: false,
       formWasChanged: false,
       errors: newsErrors || {},
+      newsItemSaved: false,
     };
 
   }
@@ -50,15 +53,19 @@ class NewsEditContainer extends Component{
 
   componentDidUpdate(prevProps, prevState, snapshot) {
 
-    const { newsItem, newsErrors, newsItemError } = this.props.newsProps;
+    const { newsItem, newsErrors, newsItemError, newsItemSaved } = this.props.newsProps;
     const { newsNewTitle, newsNewContent } = this.state;
 
-    if(newsItem !== prevProps.newsProps.newsItem) {
 
+   /* if(newsItemSaved !== prevProps.newsProps.newsItemSaved){
+        this.setState({newsItemSaved: newsItemSaved})
+      }
+   */
+    if(newsItem !== prevProps.newsProps.newsItem) {
       this.setState(() => ({
         newsItem: newsItem,
         newsNewTitle: newsItem && newsItem.title,
-        newsNewContent: newsItem && newsItem.contentFull,
+        newsNewContent: newsItem && newsItem.contentFull
       }));
 
     }else if(
@@ -98,11 +105,34 @@ class NewsEditContainer extends Component{
 
   }
 
+  handleNotify = () => {
+
+
+      this.setState(() => ({
+        newsItemSaved: true
+      }), () => {
+          setTimeout(() => {
+            this.setState({newsItemSaved: false})
+          }, 1000)
+        }
+      )
+
+
+  }
+
+  save = () => {
+    this.setState({newsItemSaved: true})
+  }
+
   render(){
     const {authProps, authAction, newsAction, newsProps} = this.props;
-    const {errors} = this.state;
+    const {errors, newsItemSaved} = this.state;
     const {source} = newsProps.newsItem || {};
     const {id} = source || 0;
+
+    const editNotifyClasses = classnames('edit__notify', {
+      'show': newsItemSaved,
+    })
 
     let editBody;
 
@@ -139,8 +169,8 @@ class NewsEditContainer extends Component{
             name="title"
             label="Title"
             id="newsNewTitle"
-            placeholder="Enter title"
             error={errors.title}
+            placeholder="Enter title"
             value={this.state.newsNewTitle}
             disabled={!authProps.user && true}
             handleChangeFunc={this.handleFieldValueChange}
@@ -165,14 +195,17 @@ class NewsEditContainer extends Component{
                 <WithConfirm
                   title='Save changes'
                   description="are u sure?"
-                  actionFunc={newsAction.editNewsItem}
+                  actionFunc={() => {
+                      newsAction.editNewsItem({
+                        newsId: id,
+                        title: this.state.newsNewTitle,
+                        content: this.state.newsNewContent,
+                        author: authProps.user,
+                      });
+                      this.handleNotify();
+                    }
+                  }
                   authState={authProps.user ? true : false}
-                  actionParams={{
-                    newsId: id,
-                    title: this.state.newsNewTitle,
-                    content: this.state.newsNewContent,
-                    author: authProps.user,
-                  }}
                   Component={(...props) => (
                     <NewsBtn
                       title="Save"
@@ -182,7 +215,7 @@ class NewsEditContainer extends Component{
                       disabled={!this.state.formWasChanged && true}
                       handleModalFunc={authAction.handleAuthModalState}
                       confirmFunc={(e) => props[0].confirmFunc(e)}
-                      classes="btn btn--primary btn--edit"
+                      classes={'btn btn--edit btn--primary'}
                     />
                   )}
                 />
@@ -190,11 +223,8 @@ class NewsEditContainer extends Component{
                 {this.state.formWasChanged && (
                   <WithConfirm
                     title='Cancel'
-                    actionParams={{
-                      newsId: id,
-                    }}
                     description="are u sure?"
-                    actionFunc={this.cancelChanges}
+                    actionFunc={() => {this.cancelChanges({ newsId: id, })}}
                     authState={authProps.user ? true : false}
                     Component={(...props) => (
                       <NewsBtn
@@ -214,13 +244,14 @@ class NewsEditContainer extends Component{
                 title='Delete'
                 description="are u sure?"
                 authState={authProps.user ? true : false}
-                actionFunc={newsAction.deleteNewsItem}
-                actionParams={{
-                  newsId: id,
-                  isPrivatePage: true,
-                  urlToRedirect: '/',
-                  history: this.props.history,
-                }}
+                actionFunc={() => {
+                  newsAction.deleteNewsItem({
+                    newsId: id,
+                    isPrivatePage: true,
+                    urlToRedirect: '/',
+                    history: this.props.history,
+                  })}
+                }
                 Component={(...props) => (
                   <NewsBtn
                     title="Delete"
@@ -243,6 +274,7 @@ class NewsEditContainer extends Component{
         <HeaderNav isPrivatePage={true} />
 
         <div className="edit">
+          <div className={editNotifyClasses}>"{trimString(this.state.newsNewTitle, 25)}" <span className="event bold">Saved</span></div>
           <div className="container edit__container">
             <div className="row">
               <div className="edit__inner mt-1">

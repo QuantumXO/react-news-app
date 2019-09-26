@@ -18,7 +18,7 @@ export function setNewsList() {
 
         setTimeout(() => {
           dispatch(newsIsLoading(false));
-        }, 2000);
+        }, 1000);
 
         return res.json()
       })

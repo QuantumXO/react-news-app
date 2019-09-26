@@ -98,11 +98,8 @@ class NewsContainer extends Component {
 
             <WithConfirm
               title='Delete'
-              actionParams={{
-                newsId: id,
-              }}
               description="are u sure?"
-              actionFunc={newsAction.deleteNewsItem}
+              actionFunc={() => {newsAction.deleteNewsItem({ newsId: id, })}}
               authState={authProps.user ? true : false}
               Component={(...props) => (
                 <NewsBtn
@@ -172,6 +169,7 @@ class NewsContainer extends Component {
         <AuthModal />
       </Fragment>
     )
+
   }
 }
 

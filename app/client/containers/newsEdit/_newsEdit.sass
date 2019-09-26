@@ -4,6 +4,28 @@
 .edit
 	flex: 1
 
+	&__notify
+		top: 0
+		left: 0
+		width: 100%
+		min-height: 35px
+		position: fixed
+		display: flex
+		align-items: center
+		justify-content: center
+		color: #155724
+		background-color: #d4edda
+		border-bottom: 1px solid #c3e6cb
+		transform: translateY(-100%)
+		transition: .2s ease-in-out
+		z-index: 999
+
+		&.show
+			transform: translateY(0)
+
+		.event
+			margin-left: .5em
+
 	&__inner
 		padding: 0 15px
 		position: relative
