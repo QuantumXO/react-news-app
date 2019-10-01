@@ -1,8 +1,6 @@
 
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
 
 import ConfirmModal from 'components/default/confirmModal/confirmModal'
 
@@ -19,7 +17,7 @@ export default class WithConfirm extends Component{
   open = () => {this.setState(() => ({open: true}))}
 
   onConfirm = (e) => {
-    const {actionFunc, actionParams = null} = this.props;
+    const {actionFunc} = this.props;
 
     if(typeof actionFunc == 'function'){
       actionFunc();
@@ -28,7 +26,7 @@ export default class WithConfirm extends Component{
 
   render(): React.ReactNode {
 
-    const {title, description, redirectUrl, authState} = this.props;
+    const {title, description, authState} = this.props;
 
     const Component = this.state.Component;
 
@@ -37,7 +35,6 @@ export default class WithConfirm extends Component{
         title={title || null}
         handleConfirmFunc={this.onConfirm}
         description={description || null}
-        redirectUrl={redirectUrl || null}
       >
         {confirm => (
           <Component confirmFunc={confirm()} authState={authState} />
@@ -55,5 +52,4 @@ WithConfirm.propTypes = {
   Component: PropTypes.any,
   actionParams: PropTypes.object,
   actionFunc: PropTypes.func,
-  redirectUrl: PropTypes.string,
 }

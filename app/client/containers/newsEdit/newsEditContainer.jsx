@@ -23,7 +23,7 @@ class NewsEditContainer extends Component{
   constructor(props){
     super(props);
 
-    const {newsItem, newsErrors, newsItemSaved} = this.props.newsProps;
+    const {newsItem, newsErrors} = this.props.newsProps;
 
     this.state = {
       newsItem: newsItem || {},
@@ -42,25 +42,16 @@ class NewsEditContainer extends Component{
   componentDidMount(): void {
     this.setState({errors: {}});
 
-    const {match, newsAction, authProps, newsProps} = this.props;
-
-    if(!authProps.user){
-      authAction.handleAuthModalState(false)
-    }
+    const {match, newsAction, newsProps} = this.props;
 
     newsAction.getNewsItem({newsId: match.params.id, appInited: newsProps.appInited});
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
 
-    const { newsItem, newsErrors, newsItemError, newsItemSaved } = this.props.newsProps;
+    const { newsItem, newsErrors, newsItemError } = this.props.newsProps;
     const { newsNewTitle, newsNewContent } = this.state;
 
-
-   /* if(newsItemSaved !== prevProps.newsProps.newsItemSaved){
-        this.setState({newsItemSaved: newsItemSaved})
-      }
-   */
     if(newsItem !== prevProps.newsProps.newsItem) {
       this.setState(() => ({
         newsItem: newsItem,
@@ -106,18 +97,15 @@ class NewsEditContainer extends Component{
   }
 
   handleNotify = () => {
-
-
       this.setState(() => ({
-        newsItemSaved: true
+        newsItemSaved: true,
+        formWasChanged: false
       }), () => {
           setTimeout(() => {
             this.setState({newsItemSaved: false})
           }, 1000)
         }
       )
-
-
   }
 
   save = () => {
@@ -248,8 +236,6 @@ class NewsEditContainer extends Component{
                   newsAction.deleteNewsItem({
                     newsId: id,
                     isPrivatePage: true,
-                    urlToRedirect: '/',
-                    history: this.props.history,
                   })}
                 }
                 Component={(...props) => (

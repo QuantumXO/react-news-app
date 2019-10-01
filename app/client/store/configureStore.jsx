@@ -21,9 +21,7 @@ export default function configureStore(initialState) {
   const store = createStore(
     rootReducer(history),
     persistedState,
-    composeWithDevTools(
-      applyMiddleware(...middleWares),
-    ),
+    composeWithDevTools(applyMiddleware(...middleWares)),
   )
 
   if(!loadLocalStorageState()){

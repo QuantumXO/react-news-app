@@ -5,6 +5,7 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import history from 'helpers/history';
 import {withRouter} from 'react-router-dom'
 import { GoogleAPIInit } from 'helpers/auth'
 import { CSSTransition } from 'react-transition-group'
@@ -89,9 +90,9 @@ class AuthModal extends Component{
     e.preventDefault();
 
     const {login, password} = this.state;
-    const {history, authAction} = this.props;
+    const {authAction} = this.props;
 
-    authAction.logIn({login, password, history})
+    authAction.logIn({login, password})
   }
 
   googleLogIn = () => {
@@ -114,10 +115,9 @@ class AuthModal extends Component{
 
   closeModal(){
     this.props.authAction.handleAuthModalState(true);
-    this.props.authAction.setUrlToRedirectFromModal(null);
 
     if(this.props.isPrivatePage){
-      this.props.history.push('/');
+      history.push('/');
     }
   }
 
@@ -193,7 +193,6 @@ const mapDispatchToProps = dispatch => ({
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AuthModal))
 
 AuthModal.propTypes = {
-  history: PropTypes.object,
   location: PropTypes.object,
   match: PropTypes.object,
   authAction: PropTypes.object,
@@ -201,7 +200,6 @@ AuthModal.propTypes = {
     user: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     modalAuthState: PropTypes.bool,
     authErrors: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
-    urlToRedirect: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     authMethod: PropTypes.string,
   }),
 }

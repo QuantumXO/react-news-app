@@ -19,7 +19,7 @@ class NewsDetailsContainer extends Component {
   constructor(props){
     super(props);
 
-    const {newsProps, newsAction, match} = this.props;
+    const {newsProps} = this.props;
 
     this.state = {
       newsItem: newsProps.newsItem || {},
@@ -86,11 +86,9 @@ class NewsDetailsContainer extends Component {
                   newsItemId={id}
                   isPrivate={true}
                   url={'/' + id + '/edit'}
-                  history={this.props.history}
                   classes="btn btn--primary btn--edit"
                   authState={authProps.user ? true : false}
                   handleModalFunc={authAction.handleAuthModalState}
-                  setRedirectUrlFunc={authAction.setUrlToRedirectFromModal}
                 />
                 <WithConfirm
                   title='Delete'

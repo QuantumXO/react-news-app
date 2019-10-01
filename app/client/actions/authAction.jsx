@@ -1,8 +1,9 @@
+
 import {
   HANDLE_MODAL_AUTH_STATE,
   LOG_IN,
   LOG_OUT,
-  SET_URL_TO_REDIRECT_FROM_MODAL,
+  LOG_IN_SUCCESS,
   CHECK_AUTH_STATE
 } from 'constants/actionTypes'
 
@@ -19,13 +20,19 @@ export function checkAuthState() {
   }
 }
 
-export function GoogleLogIn(data) {
+export function GoogleLogIn(data = {}) {
   return dispatch => {
     const GoogleAuth = window.gapi.auth2.getAuthInstance();
     return GoogleAuth.signIn({ scope: "profile email" })
       .then(
         user => {
-          dispatch(logIn({login: user.getBasicProfile().getName(), password: '123', authMethod: 'auth2'}))
+          dispatch(logIn({
+            login: user.getBasicProfile().getName(),
+            password: '123',
+            authMethod: 'auth2',
+          }));
+
+          dispatch(logInSuccess());
         },
         err => console.log('Error: ', err)
       )
@@ -33,9 +40,18 @@ export function GoogleLogIn(data) {
 }
 
 export function logIn(data = {}) {
+
+  //console.log('logIn() :', {type: LOG_IN, data})
+
   return {
     type: LOG_IN,
     data,
+  }
+}
+
+export function logInSuccess() {
+  return {
+    type: LOG_IN_SUCCESS
   }
 }
 
@@ -56,12 +72,5 @@ export function GoogleLogOut(data) {
         },
         err => console.log('Error: ', err)
       )
-  }
-}
-
-export function setUrlToRedirectFromModal(url) {
-  return {
-    type: SET_URL_TO_REDIRECT_FROM_MODAL,
-    url,
   }
 }

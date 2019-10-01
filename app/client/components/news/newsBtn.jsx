@@ -1,6 +1,7 @@
 
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
+import history from 'helpers/history';
 import PropTypes from 'prop-types';
 import classnames from 'classnames'
 
@@ -26,17 +27,14 @@ export default class NewsBtn extends Component{
       isPrivate,
       actionFunc,
       actionParams,
-      setRedirectUrlFunc,
       confirmFunc,
       type,
-      history,
       url,
     } = this.props;
 
     if(isPrivate && handleModalFunc && !authState) {
       e.preventDefault();
       handleModalFunc();
-      (typeof setRedirectUrlFunc == 'function') ? setRedirectUrlFunc(url) : null;
 
     }else {
 
@@ -46,7 +44,7 @@ export default class NewsBtn extends Component{
       }else if(typeof actionFunc == 'function'){
         actionFunc(actionParams);
 
-      }else if(url && history){
+      }else if(url){
         history.push(url);
       }
     }
@@ -87,8 +85,6 @@ NewsBtn.propTypes = {
   isPrivate: PropTypes.bool,
   disabled: PropTypes.bool,
   actionParams: PropTypes.object,
-  history: PropTypes.object,
-  setRedirectUrlFunc: PropTypes.func,
   type: PropTypes.string,
   url: PropTypes.string,
   title: PropTypes.string,

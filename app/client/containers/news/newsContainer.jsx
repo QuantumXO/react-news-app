@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 import {getNewsList} from 'helpers/news'
+import {reload} from 'helpers/default'
 import * as newsAction from 'actions/newsAction'
 import * as authAction from 'actions/authAction'
 
@@ -21,7 +22,6 @@ class NewsContainer extends Component {
 
     this.state = {
       articles: this.props.newsProps.newsList || [],
-      urlToRedirectToPrivatePage: null
     }
 
     this.props.authAction.handleAuthModalState(true);
@@ -39,8 +39,7 @@ class NewsContainer extends Component {
   componentDidUpdate(prevProps, prevState, snapshot): void {
 
     const {newsList} = this.props.newsProps;
-    const {user, urlToRedirect} = this.props.authProps;
-    const {articles} = this.state;
+    const {user} = this.props.authProps;
 
     if(newsList !== prevProps.newsProps.newsList) {
       this.setState(() => ({
@@ -48,26 +47,23 @@ class NewsContainer extends Component {
       }));
 
     }else if(
-      user !== prevProps.authProps.user ||
-      urlToRedirect !== prevProps.authProps.urlToRedirect ||
-      articles !== prevState.articles
+      user !== prevProps.authProps.user
     ){
       return true;
     }
   }
 
-  reload = () => {
-    location.reload();
+  onReload = () => {
+    reload();
   }
 
   render() {
 
     const {authProps, authAction, newsAction, newsProps} = this.props;
-    const {articles} = this.state;
 
     let articlesList;
 
-    const articlesItem = articles.map((item, index) => {
+    const articlesItem = newsProps.newsList.map((item) => {
 
       const {source, title, author, publishedAt, content} = item;
       const {id} = source;
@@ -89,17 +85,15 @@ class NewsContainer extends Component {
               title="Edit"
               isPrivate={true}
               url={id + '/edit'}
-              history={this.props.history}
               classes="btn btn--primary btn--edit"
               authState={authProps.user ? true : false}
               handleModalFunc={authAction.handleAuthModalState}
-              setRedirectUrlFunc={authAction.setUrlToRedirectFromModal}
             />
 
             <WithConfirm
               title='Delete'
               description="are u sure?"
-              actionFunc={() => {newsAction.deleteNewsItem({ newsId: id, })}}
+              actionFunc={() => {newsAction.deleteNewsItem({ newsId: id })}}
               authState={authProps.user ? true : false}
               Component={(...props) => (
                 <NewsBtn
@@ -124,7 +118,6 @@ class NewsContainer extends Component {
       )
     });
 
-
     if(newsProps.loadingStatus){
       articlesList = (
         <div className="lds-facebook mt-2">
@@ -138,7 +131,7 @@ class NewsContainer extends Component {
       articlesList = (
         <div className='news__error'>
           <p className="news__error__title">{newsProps.newsErrors.message}</p>
-          <d>Try again <span className="btn btn--primary" onClick={this.reload}>Reload</span></d>
+          <d>Try again <span className="btn btn--primary" onClick={this.onReload}>Reload</span></d>
         </div>
       );
 
@@ -186,7 +179,6 @@ const mapDispatchToProps = dispatch => ({
 export default connect(mapStateToProps, mapDispatchToProps)(NewsContainer)
 
 
-
 NewsContainer.propTypes = {
   newsProps: PropTypes.shape({
     appInited: PropTypes.bool,
@@ -200,7 +192,6 @@ NewsContainer.propTypes = {
     user: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     modalAuthState: PropTypes.bool,
     authErrors: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
-    urlToRedirect: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     authMethod: PropTypes.string,
   }),
 };

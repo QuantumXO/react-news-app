@@ -1,4 +1,5 @@
 
+import history from 'helpers/history';
 import {getNewsList} from 'helpers/news';
 
 import { SET_NEWS_LIST, GET_NEWS_ITEM, DELETE_NEWS_ITEM, EDIT_NEWS_ITEM, NEWS_LIST_FETCH_DATA_SUCCESS, NEWS_LIST_FETCH_DATA_FAILURE, NEWS_IS_LOADING } from 'constants/actionTypes'
@@ -64,6 +65,9 @@ export function getNewsItem(data){
 }
 
 export function deleteNewsItem(data){
+
+  history.push('/');
+
   return {
     type: DELETE_NEWS_ITEM,
     data

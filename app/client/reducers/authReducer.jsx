@@ -1,14 +1,18 @@
 
-import { HANDLE_MODAL_AUTH_STATE, LOG_IN, LOG_OUT, SET_URL_TO_REDIRECT_FROM_MODAL, CHECK_AUTH_STATE } from 'constants/actionTypes'
+import {
+  LOG_IN,
+  LOG_OUT,
+  LOG_IN_SUCCESS,
+  HANDLE_MODAL_AUTH_STATE,
+  CHECK_AUTH_STATE } from 'constants/actionTypes'
 
 import { checkAuth, authValidation } from 'helpers/auth'
-import { setCookie, deleteCookie, redirectToUrl } from 'helpers/default'
+import { setCookie, deleteCookie, } from 'helpers/default'
 
 const initialState = {
   user: null,
   modalAuthState: false,
   authErrors: null,
-  urlToRedirect: null,
   authMethod: 'default',
 }
 
@@ -24,12 +28,6 @@ export default function authReducer(state = initialState, action){
   case LOG_OUT:
     return logOut(state, action)
 
-  case SET_URL_TO_REDIRECT_FROM_MODAL:
-    return {
-      ...state,
-      urlToRedirect: action.url
-    }
-
   case CHECK_AUTH_STATE:
     return checkAuthState(state);
 
@@ -42,7 +40,6 @@ function handleModalState(state, action) {
   const newState = {
     ...state,
     modalAuthState: (typeof action.modalState !== 'undefined') ? !action.modalState : !state.modalAuthState,
-    urlToRedirect: null,
   }
   return newState
 }
@@ -50,13 +47,12 @@ function handleModalState(state, action) {
 function logIn(state, action) {
 
   const authData = checkAuth();
-  let newState = { ...state, authErrors: {}};
+  const newState = { ...state, authErrors: {}};
 
   if(!authData){
     // Log In
 
-    const {authMethod, login, history} = action.data;
-
+    const {authMethod, login} = action.data;
     const validationResult = authValidation(action.data);
 
     if(authMethod == 'auth2' || validationResult.status){
@@ -69,11 +65,20 @@ function logIn(state, action) {
       newState.authErrors = [];
       newState.authMethod = authMethod;
 
-      if(state.urlToRedirect) newState.urlToRedirect = redirectToUrl(state.urlToRedirect, history);
+      return {
+        ...state,
+        user: login,
+        modalAuthState: false,
+        authErrors: [],
+        authMethod,
+      }
 
     }else {
+
       newState.authErrors = validationResult.errors;
+
     }
+
   }
 
   return newState

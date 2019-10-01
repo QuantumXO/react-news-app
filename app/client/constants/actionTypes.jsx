@@ -3,9 +3,9 @@
  */
 
 // AUTH
-
 export const LOG_IN = 'LOG_IN';
 export const LOG_OUT = 'LOG_OUT';
+export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS';
 export const CHECK_AUTH_STATE = 'CHECK_AUTH_STATE';
 export const HANDLE_MODAL_AUTH_STATE = 'HANDLE_MODAL_AUTH_STATE';
 export const SET_URL_TO_REDIRECT_FROM_MODAL = 'SET_URL_TO_REDIRECT_FROM_MODAL';

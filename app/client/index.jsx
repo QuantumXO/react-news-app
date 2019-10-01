@@ -2,22 +2,22 @@
 import React, { Fragment } from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
+import history from 'helpers/history';
 // React router
-import { HashRouter, BrowserRouter, } from 'react-router-dom'
+import { HashRouter, BrowserRouter, Router} from 'react-router-dom'
 
 import ErrorBoundary from 'components/default/ErrorBoundary'
 import AppContainer from 'containers/appContainer'
 
 import configureStore from 'store/configureStore'
-import Router from './router/router'
 const store = configureStore()
 
 ReactDOM.render(
   <Provider store={store}>
     <ErrorBoundary>
-      <HashRouter>
+      <Router history={history}>
         <AppContainer />
-      </HashRouter>
+      </Router>
     </ErrorBoundary>
   </Provider>,
   document.querySelector('#root'),

@@ -1,5 +1,5 @@
 
-import { trimString, redirectToUrl } from 'helpers/default'
+import { trimString } from 'helpers/default'
 import { newsValidation } from 'helpers/news'
 import { NEWS_IS_LOADING, GET_NEWS_ITEM, DELETE_NEWS_ITEM, EDIT_NEWS_ITEM, NEWS_LIST_FETCH_DATA_SUCCESS, NEWS_LIST_FETCH_DATA_FAILURE } from 'constants/actionTypes'
 
@@ -71,7 +71,7 @@ function getNewsItem(state, action) {
 
 function deleteNewsItem(state, action) {
 
-  const {newsId, urlToRedirect, history} = action.data;
+  const {newsId} = action.data;
 
   const newsItem = (Object.keys(state.newsItem).length && state.newsItem.source.id == newsId) ? null : state.newsItem;
   const newsList = state.newsList.filter(item => item.source.id != newsId);
@@ -82,8 +82,6 @@ function deleteNewsItem(state, action) {
     newsItem: newsItem,
     newsListIsEmpty: !newsList.length ? true : false,
   }
-
-  if(urlToRedirect) newState.urlToRedirect = redirectToUrl(urlToRedirect, history);
 
   return newState
 }

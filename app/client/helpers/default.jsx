@@ -71,9 +71,6 @@ export function replaceWhitespaceWithUnderscore(str = '') {
   return str.replace(/[\s/]/g, '_')
 }
 
-export function redirectToUrl(urlToRedirect, history) {
-
-  history.push(urlToRedirect);
-
-  return null;
+export function reload() {
+  location.reload();
 }
