@@ -1,5 +1,5 @@
 # React news app
-[Demo](https://quantumxo.github.io/react-news-app/dist/#/)
+[Демо](https://quantumxo.github.io/react-news-app/dist/#/)
 
 
 Юзабилити:
