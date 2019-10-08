@@ -43,7 +43,6 @@ export function trimString(str = '', count = 200){
     str = str.substr(0, count)
     str += '...'
   }
-  // console.log('[default.ts] -> trimString __ str: ', str);
 
   return str
 }

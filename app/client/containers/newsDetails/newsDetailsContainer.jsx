@@ -10,9 +10,9 @@ import * as newsAction from 'actions/newsAction'
 import * as authAction from 'actions/authAction'
 
 import NewsBtn from 'components/news/NewsBtn'
-import HeaderNav from 'components/default/headerNav'
+import HeaderNav from 'components/shared/headerNav'
 import WithConfirm from 'components/HOCs/withConfirm'
-import AuthModal from 'components/default/authModal/authModal'
+import AuthModal from 'components/shared/authModal/authModal'
 
 class NewsDetailsContainer extends Component {
 
@@ -48,6 +48,9 @@ class NewsDetailsContainer extends Component {
   render() {
 
     const {authProps, authAction, newsAction, newsProps} = this.props;
+    const {title, content, author, publishedAt, source, contentFull} = newsProps.newsItem || {};
+    const {id} = source || 0;
+    let detailsBody;
 
     if(newsProps.newsItemError && newsProps.appInited){
       return (
@@ -57,11 +60,6 @@ class NewsDetailsContainer extends Component {
       )
     }
 
-    const {title, content, author, publishedAt, source, contentFull} = this.state.newsItem || {};
-    const {id} = source || 0;
-
-    let detailsBody;
-
     if(newsProps.loadingStatus){
       detailsBody = (
         <div className="lds-facebook mt-2">
@@ -70,6 +68,7 @@ class NewsDetailsContainer extends Component {
           <div />
         </div>
       )
+
     }else if(!newsProps.newsItemError && newsProps.appInited){
       detailsBody = (
         <Fragment>
@@ -130,7 +129,6 @@ class NewsDetailsContainer extends Component {
 
         <AuthModal />
       </Fragment>
-
     )
   }
 }

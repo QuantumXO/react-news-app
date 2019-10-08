@@ -4,8 +4,9 @@ import { createLogger } from 'redux-logger'
 import { createStore, applyMiddleware } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { routerMiddleware } from "connected-react-router"
+import history from 'helpers/history';
 
-import { loadLocalStorageState, saveLocalStorageState } from './../helpers/localStorageState'
+import { loadLocalStorageState, saveLocalStorageState } from 'helpers/localStorageState'
 import rootReducer from 'reducers/rootReducer'
 
 export default function configureStore(initialState) {
@@ -34,3 +35,4 @@ export default function configureStore(initialState) {
 
   return store
 }
+

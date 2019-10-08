@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 
-import ConfirmModal from 'components/default/confirmModal/confirmModal'
+import ConfirmModal from 'components/shared/confirmModal/confirmModal'
 
 export default class WithConfirm extends Component{
   constructor(props){

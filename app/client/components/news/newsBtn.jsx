@@ -1,6 +1,5 @@
 
 import React, {Component} from 'react'
-import {Link} from 'react-router-dom'
 import history from 'helpers/history';
 import PropTypes from 'prop-types';
 import classnames from 'classnames'
@@ -58,7 +57,7 @@ export default class NewsBtn extends Component{
       'disabled': disabled,
     }, classes);
 
-    if(type == 'submit'){
+    if(type === 'submit'){
       return (
         <button
           type="submit"

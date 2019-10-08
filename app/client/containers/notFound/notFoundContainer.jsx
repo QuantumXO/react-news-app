@@ -3,8 +3,8 @@ import './_notFound.sass';
 
 import React, {Fragment} from 'react';
 import {Link} from 'react-router-dom'
-import HeaderNav from 'components/default/headerNav'
-import AuthModal from 'components/default/authModal/authModal'
+import HeaderNav from 'components/shared/headerNav'
+import AuthModal from 'components/shared/authModal/authModal'
 
 export default function NotFoundContainer(props) {
   return (

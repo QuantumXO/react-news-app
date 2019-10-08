@@ -11,7 +11,7 @@ import { GoogleAPIInit } from 'helpers/auth'
 import { CSSTransition } from 'react-transition-group'
 import * as authAction from 'actions/authAction'
 
-import Input from 'components/default/form/input'
+import Input from 'components/shared/form/input'
 
 class AuthModal extends Component{
 

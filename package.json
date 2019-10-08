@@ -15,6 +15,20 @@
     "last 4 versions",
     "not ie < 9"
   ],
+  "jest": {
+    "verbose": true,
+    "clearMocks": false,
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.jsx?$",
+    "setupFilesAfterEnv": [
+      "<rootDir>/setupTests.js"
+    ],
+    "testPathIgnorePatterns": [
+      "<rootDir>/(node_modules|.vscode)/"
+    ],
+    "collectCoverageFrom": [
+      "app/client/components/**/*.(js,jsx)"
+    ]
+  },
   "author": "",
   "license": "ISC",
   "devDependencies": {
@@ -38,8 +52,12 @@
     "browser-sync": "^2.23.6",
     "clean-webpack-plugin": "^0.1.19",
     "css-loader": "^0.28.11",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
     "eslint": "^4.19.1",
+    "eslint-import-resolver-babel-module": "^5.1.0",
     "eslint-loader": "^2.0.0",
+    "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-react": "^7.9.1",
     "express": "^4.16.4",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
@@ -52,6 +70,7 @@
     "imagemin-jpeg-recompress": "^5.1.0",
     "imagemin-pngquant": "^5.0.1",
     "img-loader": "^3.0.0",
+    "jest": "^24.9.0",
     "json-loader": "^0.5.7",
     "less": "^3.0.4",
     "less-loader": "^4.1.0",
@@ -93,11 +112,10 @@
     "@hot-loader/react-dom": "^16.8.4",
     "classnames": "^2.2.6",
     "config-chain": "^1.1.12",
-    "connected-react-router": "^6.3.2",
+    "connected-react-router": "^6.5.2",
     "cssnano": "^4.1.10",
     "directory-named-webpack-plugin": "^4.0.1",
     "eslint-import-resolver-webpack": "^0.11.1",
-    "eslint-plugin-import": "^2.18.2",
     "express-generator": "^4.16.1",
     "history": "^4.10.1",
     "i": "^0.3.6",

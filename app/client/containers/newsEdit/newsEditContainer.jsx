@@ -14,10 +14,10 @@ import * as newsAction from 'actions/newsAction'
 import * as authAction from 'actions/authAction'
 
 import NewsBtn from 'components/news/NewsBtn'
-import HeaderNav from 'components/default/headerNav'
+import HeaderNav from 'components/shared/headerNav'
 import WithConfirm from 'components/HOCs/withConfirm'
-import Input from 'components/default/form/input'
-import AuthModal from 'components/default/authModal/authModal'
+import Input from 'components/shared/form/input'
+import AuthModal from 'components/shared/authModal/authModal'
 
 class NewsEditContainer extends Component{
   constructor(props){

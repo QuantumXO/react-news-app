@@ -11,8 +11,8 @@ import * as newsAction from 'actions/newsAction'
 import * as authAction from 'actions/authAction'
 
 import NewsBtn from 'components/news/NewsBtn'
-import HeaderNav from 'components/default/headerNav'
-import AuthModal from 'components/default/authModal/authModal'
+import HeaderNav from 'components/shared/headerNav'
+import AuthModal from 'components/shared/authModal/authModal'
 
 import WithConfirm from 'components/HOCs/withConfirm'
 

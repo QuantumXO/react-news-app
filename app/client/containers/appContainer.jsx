@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as authAction from 'actions/authAction'
 import Routes from '../router/router'
-import Footer from 'components/default/footer/footer'
+import Footer from 'components/shared/footer/footer'
 
 class AppContainer extends Component{
 
